@@ -1,0 +1,165 @@
+%
+%                       This is a basic LaTeX Template
+%                       for the Informatics Research Review
+
+\documentclass[a4paper,11pt]{article}
+% Add local fullpage and head macros
+\usepackage{head,fullpage}     
+% Add graphicx package with pdf flag (must use pdflatex)
+\usepackage[pdftex]{graphicx}  
+% Better support for URLs
+\usepackage{url}
+% Date formating
+\usepackage{datetime}
+
+\newdateformat{monthyeardate}{%
+  \monthname[\THEMONTH] \THEYEAR}
+
+\parindent=0pt          %  Switch off indent of paragraphs 
+\parskip=5pt            %  Put 5pt between each paragraph  
+\Urlmuskip=0mu plus 1mu %  Better line breaks for URLs
+
+
+%                       This section generates a title page
+%                       Edit only the following three lines
+%                       providing your exam number, 
+%                       the general field of study you are considering
+%                       for your review, and name of IRR tutor
+
+\newcommand{\examnumber}{2187344}
+\newcommand{\field}{Detecting Ethereum Smart Contract Security Loopholes}
+\newcommand{\supervisor}{Lorenzo Martinico}
+
+\begin{document}
+\begin{minipage}[b]{110mm}
+        {\Huge\bf School of Informatics
+        \vspace*{17mm}}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{40mm}               
+        \makebox[40mm]{
+        \includegraphics[width=40mm]{crest.png}}
+\end{minipage}
+\par\noindent
+    % Centre Title, and name
+\vspace*{2cm}
+\begin{center}
+        \Large\bf Research Methods In Security, Privacy, and Trust \\
+        \Large\bf \field
+\end{center}
+\vspace*{1.5cm}
+\begin{center}
+        \bf \examnumber\\
+        \monthyeardate\today
+\end{center}
+\vspace*{5mm}
+
+%
+%                       Insert your abstract HERE
+%                       
+\begin{abstract}
+
+\end{abstract}
+
+\vspace*{1cm}
+
+\vspace*{3cm}
+Date: \today
+
+\vfill
+{\bf Supervisor:} \supervisor
+\newpage
+
+%                                               Through page and setup 
+%                                               fancy headings
+\setcounter{page}{1}                            % Set page number to 1
+\footruleheight{1pt}
+\headruleheight{1pt}
+\lfoot{\small School of Informatics}
+\lhead{Informatics Research Review}
+\rhead{- \thepage}
+\cfoot{}
+\rfoot{Date: \date{\today}}
+%
+
+\section{Introduction}
+
+Ethereum is a general-purpose Blockchain, providing a platform to run
+decentralized applications executing code called Smart Contracts. Smart Contracts
+mainly manage valuable digital assets, and thus securing them is a top priority.
+Yet, it is typical for any piece of code to have bugs. However, Smart Contract
+bug fixes on the fly are not feasible since blockchain is an immutable
+append-only data structure. Hence, detecting code bugs and vulnerabilities
+before deploying Smart Contracts is vital.
+
+In recent years there have been several attempts to create practical
+vulnerability detection tools for Smart Contracts. This is a niche topic, and
+there are several schools of thought when it comes to detecting security
+loopholes. This literature review aims to probe associated studies, focusing on
+different methods of detecting Smart Contract vulnerabilities, comparing
+different approaches, and taxonomizing existing frameworks.
+
+...
+
+In this literature review, I explore the most prominent research attempts
+towards creating an effective vulnerability detection tool for Ethereum Smart
+Contracts. The method used to filter relevant studies comprised multiple steps.
+Initially, I used trustworthy academic search engines such as Google Scholar and
+IEEE Explorer to retrieve a few papers and have them in a paper pool. The main
+selection criteria were the number of citations in combination with the paper
+release year. Highly cited articles with recent release dates usually include
+important research outcomes and can be the cornerstone for future work. After
+isolating a few reputable studies, I used a graph representation tool
+\cite{connectedpapers} that links relevant papers. This tool allowed me to
+identify remarkable research papers rapidly. Afterward, I manually inspected the
+search results and included the most reliable in my paper pool. Iterating the
+procedure mentioned above, I converged into a set of papers to form this
+literature review.
+
+...
+
+\section{Literature Review}
+
+\subsection{White/Grey-box Fuzzing}
+
+\subsubsection{Static Smart Contract Analysis}
+
+Smart Check \cite{tikhomirov2018smartcheck} \\
+Slither \cite{feist2019slither} \\
+MadMax \cite{grech2018madmax} \\
+Zeus \cite{kalra2018zeus} \\ 
+
+\subsubsection{Dynamic Smart Contract Analysis}
+
+Oyente \cite{luu2016making} \\
+Manticore \cite{mossberg2019manticore} \\
+
+\subsection{Black-box Fuzzing}
+
+Contract Fuzzer \cite{jiang2018contractfuzzer} \\
+ReGaurd \cite{liu2018reguard} \\
+
+\subsection{Analysing Smart Contracts Using Formal Verification}
+
+Securify \cite{tsankov2018securify} \\
+
+\subsection{Analysing Smart Contracts Using Machine Learning}
+
+SoliAudit \cite{liao2019soliaudit} \\
+
+\section{Summary \& Conclusion}
+
+\nocite{*}
+
+%                Now build the reference list
+\bibliographystyle{unsrt}   % The reference style
+%                This is plain and unsorted, so in the order
+%                they appear in the document.
+
+
+\small
+
+\bibliography{main}       % bib file(s).
+
+\end{document}
+
