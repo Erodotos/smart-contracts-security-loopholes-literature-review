@@ -99,7 +99,6 @@ loopholes. This literature review aims to probe associated studies, focusing on
 different methods of detecting Smart Contract vulnerabilities, comparing
 different approaches, and taxonomizing existing frameworks.
 
-\pagebreak
 
 \section{Methodology}
 
@@ -107,84 +106,46 @@ In this literature review, we explore the most prominent research attempts
 towards creating an effective vulnerability detection tool for Ethereum Smart
 Contracts. The method used to filter relevant studies comprised both bottom-up
 and top-down strategies. Their combination significantly accelerated identifying
-adequate quality papers to include in this literature review.
+adequate quality papers to include in this literature review.\\
 
 During the bottom-up stage, we sought several papers related to frameworks that
 identify Smart Contract vulnerabilities. To achieve that, we employed
 trustworthy academic search engines such as \emph{Google Scholar} and \emph{IEEE
 Explorer}. We noticed that most of the retrieved writings had a joint primary
 related work, which guided us to discover this research topic's essence
-paper\cite{luu2016making}. 
+paper\cite{luu2016making}. \\
 
 Subsequently, we aimed to find any derivative studies related to the paper we
 found in the previous phase. To do so, we used a graph representation
 tool\cite{connectedpapers} that links relevant papers. This mechanism allowed us
 to identify remarkable research articles rapidly. Afterward, we manually
 inspected the search results and included the most reliable in our under
-investigation list.
+investigation list.\\
 
-Namely, we collected forty-seven papers, but we only consider nineteen of them
-in this literature review. The selection criteria span the context of the
-studies and their research contribution. We measure their contribution according
-to their citations and release year. According to their publication year,
-studies are assigned a weight ranging from 1 to 4. Papers in the span of
-2016-2017, 2018, 2019, 2020  receive 1, 2, 4, 8 points, respectively, for each
-citation they hold. Using this metric, we evaluate the studies shown in Table
-\ref{table:studies}.
+Namely, we collected forty-seven papers, but we only consider 20 of them in this
+literature review. The selection criteria span the context of the studies and
+their research contribution. We measure their contribution according to their
+citations and release year. According to their publication year, studies are
+assigned a weight ranging from 1 to 4. Papers in the span of 2016-2017,
+2018, 2019, 2020  receive 1, 2, 4, 8 points, respectively, for each
+citation they hold. Using this metric, we evaluate the studies shown in the
+table ...\\
 
 \begin{table}[htpb]
         \begin{center}
-            \small
-            \begin{tabular}{||p{11cm}|c|c|c|c||}
+            \begin{tabular}{||l|c|c|c|c||}
                 \hline
-                Study & Year & Cit. & Score & Ref. \\ 
+                Study & Year & Citations & Score & Reference \\ 
                 \hline
                 \hline
                 Making Smart Contracts Smarter & 2016  & 1445 & 1445 & \cite{luu2016making} \\
-                \hline
-                A Survey of Attacks on Ethereum Smart Contracts (SoK) & 2017  & 1176 & 1176 & \cite{atzei2017survey} \\
-                \hline
-                Securify: Practical Security Analysis of Smart Contracts & 2018  & 436 & 872 & \cite{tsankov2018securify} \\
-                \hline
-                VerX: Safety Verification of Smart Contracts & 2020  & 103 & 824 & \cite{permenev2020verx} \\
-                \hline
-                ZEUS: Analyzing Safety of Smart Contracts  & 2018  & 399 & 798 & \cite{kalra2018zeus} \\
-                \hline
-                Finding The Greedy, Prodigal, and Suicidal Contracts at Scale & 2018  & 357 & 714 & \cite{liu2018reguard} \\
-                \hline
-                SmartCheck: Static Analysis of Ethereum Smart Contracts & 2018  & 291 & 582 & \cite{tikhomirov2018smartcheck} \\
-                \hline
-                Formal Verification of Smart Contracts & 2016  & 525 & 525 & \cite{bhargavan2016formal} \\
-                \hline
-                ContractFuzzer:Fuzzing Smart Contracts for Vulnerability Detection & 2018  & 233 & 466 & \cite{jiang2018contractfuzzer} \\
-                \hline
-                Slither: A Static Analysis Framework For Smart   & 2019  & 109 & 436 & \cite{feist2019slither} \\
-                \hline
-                MadMax:Surviving Out-of-Gas Conditions in Ethereum Smart Contracts & 2018  & 213 & 426 & \cite{grech2018madmax} \\
-                \hline
-                Manticore: A User-Friendly Symbolic Execution Framework for Binaries and Smart Contracts  & 2019  & 91 & 364 & \cite{mossberg2019manticore} \\
-                \hline
-                teether:Gnawing at Ethereum to Automatically Exploit Smart Contracts & 2018  & 173 & 345 & \cite{krupp2018teether} \\
-                \hline
-                Vandal:A Scalable Security Analysis Framework for Smart Contracts & 2018  & 154 & 308 & \cite{brent2018vandal} \\
-                \hline
-                ReGuard: Finding Reentrancy Bugs in Smart Contracts & 2018  & 122 & 244 & \cite{liu2018reguard} \\
-                \hline
-                Ethereum Smart Contracts: Vulnerabilities and their Classifications & 2020  & 12 & 96 & \cite{khan2020ethereum} \\
-                \hline
-                ETHPLOIT:From Fuzzing to Efficient Exploit Generation against Smart Contracts & 2020  & 10 & 80 & \cite{zhang2020ethploit} \\
-                \hline
-                GasFuzzer: Fuzzing Ethereum Smart Contract Binaries to Expose Gas-Oriented Exception Security Vulnerabilities & 2020  & 8 & 64 & \cite{ashraf2020gasfuzzer} \\
-                \hline
-                SoliAudit: Smart Contract Vulnerability Assessment Based on Machine Learning and Fuzz Testing & 2019  & 13 & 52 & \cite{liao2019soliaudit} \\
-                \hline
+                A Survey of Attacks on Ethereum Smart Contracts (SoK) & 2016  & 1445 & 1445 & \cite{luu2016making} \\
+                Making Smart Contracts Smarter & 2016  & 1445 & 1445 & \cite{luu2016making} \\
+                Making Smart Contracts Smarter & 2016  & 1445 & 1445 & \cite{luu2016making} \\
+                Making Smart Contracts Smarter & 2016  & 1445 & 1445 & \cite{luu2016making} \\
             \end{tabular}
-            \label{table:studies}
-            \caption{List of papers that are analyzed in this literature review, sorted by their score}
         \end{center}
-\end{table}
-
-\pagebreak
+    \end{table}
 
 \section{Literature Review}
 
