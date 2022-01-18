@@ -84,22 +84,87 @@ Date: \today
 
 \section{Introduction}
 
-Ethereum is a general-purpose Blockchain, providing a platform to run
-decentralized applications executing code called Smart Contracts. Smart Contracts
-mainly manage valuable digital assets, and thus securing them is a top priority.
-Yet, it is typical for any piece of code to have bugs. However, Smart Contract
-bug fixes on the fly are not feasible since blockchain is an immutable
-append-only data structure. Hence, detecting code bugs and vulnerabilities
-before deploying Smart Contracts is vital.
+During the predawn of the 21st century, we glimpsed a rapid technological and
+economic development that brought us face to face with a new technology called
+the blockchain. In recent years, blockchain and foremost cryptocurrencies gained
+much attraction due to the high monetary gains, which seem astronomical compared
+to traditional stock markets. It is a matter of the fact that this growth has
+acted as a catalyst for the technological and research eruption we have been
+experiencing lately. By the end of 2021, the total cryptocurrency market
+capitalization was 2 Trillion US Dollars[], featuring more than 16000 projects[].
+Initially, the blockchain was proposed to facilitate the transfer of value
+completely decentralized and trust-framed over a network of peers. This was
+Satoshi's Nakamoto Bitcoin[] that came into existence in 2008. Since then, the
+research and technological trends have shifted into second-generation
+blockchains. Among them, the most dominant is Ethereum[]. Ethereum is a
+general-purpose blockchain, providing an open platform for individuals to build
+their applications on top of it. Their applications, i.e., Smart Contracts, are
+pieces of code that run decentralized on the Ethereum network. This allows
+developers to get involved in this new technology, creating an entirely new
+industry. Ethereum's ecosystem flared into a broad spectrum of Smart Contract
+applications, including, but not limited to, financial apps, games, digital art
+and music, digital voting, and patent registration. 
 
-In recent years there have been several attempts to create practical
-vulnerability detection tools for Smart Contracts. This is a niche topic, and
-there are several schools of thought when it comes to detecting security
-loopholes. This literature review aims to probe associated studies, focusing on
-different methods of detecting Smart Contract vulnerabilities, comparing
-different approaches, and taxonomizing existing frameworks.
+Smart Contracts have balance measured in Ether and persistent private storage.
+The Smart Contract's code can manipulate changes in the program's variables and
+storage. On Ethereum, Smart Contracts code is in EVM[] (Ethereum Virtual
+Machine), a Turing complete stack-based bytecode language spanning 144 OP
+codes[]. Nonetheless, developers can define their code in a high-level language
+such as Solidity[], compiled to EVM bytecode afterward. A new transaction
+invocation can cause the execution of the contract's code by receiving inputs
+and producing outputs. Typically, when a user wants to trigger a Smart Contract
+needs to create a new transaction and pay some fees[]. Transaction fees depend on
+the code being executed on the Ethereum network.
 
-\pagebreak
+Beyond any doubt, the Ethereum blockchain is used to manage digital assets
+reflecting a considerable value. Hence Smart Contracts gained the interest of
+malign entities. Numerous attackers perform attacks on the Ethereum
+applications, with the ultimate goal of stealing Ether from them. One of the
+most severe attacks was the infamous DAO[]. In more detail, in 2016, an
+autonomous decentralized organization was founded to direct a venture capital
+fund. This organization was formed on the Ethereum blockchain, and over 11000
+investors deposited into a Smart Contract over 150 Million US Dollars[]
+considering the Ether price back then. Then, an unprecedented attack[] was
+performed on that Smart Contract, resulting in 50 Million US Dollars loss.
+Another critical incident happened with the Parity Wallet[], where the attack []
+led to freezing 150 Million US Dollars, in terms of Ether, impermanently.
+
+Nevertheless, it is typical for any piece of code to have bugs. Likewise, we
+expect Smart Contracts to behave in the same way. Potentially, five main reasons
+make Smart Contracts vulnerable. We might blame developers for not wholly
+understanding the blockchain development stack[smart check]. Also, Solidity is a
+relatively new language with many limitations and challenges. Thus, it is hard
+for developers to use it[smart check]. We consider blockchain immutability as
+another non-helping characteristic. Any application deployed on the Ethereum
+network can not be modified, so software fixes are not immediately
+doable[contract fuzzer]. A public blockchain allows financially motivated
+attackers to use their online pseudonymity to exploit any software bug[smart
+check]. Finally, we cannot control the Smart Contract execution environment
+since the network runs in a decentralized fashion[smart check]. For this reason,
+Smart Contract developers need to detect possible vulnerabilities in their code
+before going live. A Smart Contract Auditing tool would benefit both users and
+developers. A developer might use the tool to detect any code issues before
+deploying the Smart Contract. At the same time, users can utilize the tool to
+check if the Smart Contract they are depositing Ether is safe and does behave
+maliciously.
+
+Indeed, such tools came into existence in 2016, with the first one being
+OYENTE[]. Since then, academic researchers have invested time and effort in
+expanding this research field, developing a plethora o tools. Some of them are
+general, trying to detect any vulnerability, while some others focus on a few of
+them. Also, they employ different analysis techniques, such as Static Analysis,
+Dynamic Analysis, Symbolic Execution, Fuzzing, and Machine Learning.
+Furthermore, researchers attempted to document and classify many of these
+vulnerabilities according to their behavior or functionality.
+
+The contribution of this work is three-fold. Initially, we document and classify
+Smart Contract vulnerabilities reported across the most prominent studies. Next,
+we present the research trends of developing a Smart Contract vulnerability
+framework throughout the years, giving an overview of the techniques used and
+directions taken. Finally, we elaborate on the result reliability and
+scalability of the most paramount frameworks.
+
+The structure of the following literature review has as follows ...
 
 \section{Methodology}
 
@@ -116,8 +181,8 @@ Explorer}. We noticed that most of the retrieved writings had a joint primary
 related work, which guided us to discover this research topic's essence
 paper\cite{luu2016making}. 
 
-Subsequently, we aimed to find any derivative studies related to the paper we
-found in the previous phase. To do so, we used a graph representation
+Subsequently, we aimed to find any derivative studies related to the paper
+arisen in the previous phase. To do so, we used a graph representation
 tool\cite{connectedpapers} that links relevant papers. This mechanism allowed us
 to identify remarkable research articles rapidly. Afterward, we manually
 inspected the search results and included the most reliable in our under
