@@ -11,6 +11,7 @@
 \usepackage{url}
 % Date formating
 \usepackage{datetime}
+\usepackage{multirow}
 
 \newdateformat{monthyeardate}{%
   \monthname[\THEMONTH] \THEYEAR}
@@ -197,7 +198,7 @@ studies are assigned a weight ranging from 1 to 4. Papers in the span of
 citation they hold. Using this metric, we evaluate the studies shown in Table
 \ref{table:studies}.
 
-\begin{table}[htpb]
+\begin{table}[t]
         \begin{center}
             \small
             \begin{tabular}{||p{11cm}|c|c|c|c||}
@@ -249,11 +250,195 @@ citation they hold. Using this metric, we evaluate the studies shown in Table
         \end{center}
 \end{table}
 
-\pagebreak
-
 \section{Literature Review}
 
 \subsection{Smart Contract Attack Surface}
+
+One of the most important aspects of Smart Contract vulnerability detection
+tools is understanding and realizing models that precisely describe a
+vulnerability. Different authors have unique approaches on how to classify
+potential faulty code. For example, according to their overall behavior,
+Nikolic et al. [Finding greedy ...] categorize Smart Contract into Greedy,
+Prodigal, and Suicidal. Namely, each category represents an abstract
+representation of a group of more explicit vulnerabilities. On the other hand,
+some other authors prefer to distinguish vulnerabilities based on the domain
+they affect. For example, a few studies, like GasFuzzer [gas fuzzer], choose to
+examine only gas-oriented vulnerabilities. Subsequently, it is abundantly clear
+that there is a broad spectrum of Smart Contract vulnerabilities, and there is
+not a single universally accepted classification of them. In 2017 Atzei et al.
+[sok] published a survey including the most well-known security pitfalls of the
+Ethereum Smart Contracts. In more detail, they report twelve points,
+taxonomizing them into three categories (Solidity-Level, EVM-Level, and
+Blockchain-Level). Four years and over ten million blocks later, new
+vulnerabilities arose. Hence, within the context of this literature review, we
+have collected reported vulnerabilities across different studies and present a
+thorough list of them, trying to categorize them into seven groups.
+
+We categorize vulnerabilities according to their domain. In the first place, we
+noticed that a few frameworks tend to include in their auditing report warnings
+related to Smart Contract syntax or related good programming practices. Thus, we
+included a category to wrap up all of these suggestions. Furthermore, we have
+classes referring to internal, external, and arithmetic bugs. Finally, we
+introduce two more categories to enclose transaction and block dependency
+exposures. Ultimately, we report twenty-two vulnerabilities over these domains
+(Note: a vulnerability might be part of multiple domains). Table 2 depicts the
+category and vulnerability mappings. The following subsections describe each
+vulnerability in more detail.
+
+\begin{table}[t]
+        \begin{center}
+            \small
+            \begin{tabular}{||c|c|l||}
+                \hline
+                Class & No. & Vulnerability Name\\ 
+                \hline
+                \hline
+                \multirow{8}{*}{Syntax Violations}                              & 1  & Interface violation \\ \cline{2-3}
+                                                                                & 2  & Compiler version inconsistency \\ \cline{2-3}
+                                                                                & 3  & Variable visibility modifiers \\ \cline{2-3}
+                                                                                & 4  & Function visibility level  \\ \cline{2-3}
+                                                                                & 5  & Argument validation  \\ \cline{2-3}
+                                                                                & 6  & Costly coding scheme  \\ \cline{2-3}
+                                                                                & 7  & Redundant Fallback Function  \\ \cline{2-3}
+                                                                                & 8  & Code format/style violation  \\ \cline{1-3}
+                \multirow{5}{*}{Internal Vulnerabilities}                       & 9  & Ether Freezing \\ \cline{2-3}
+                                                                                & 10 & Destroybale Contract  \\ \cline{2-3}
+                                                                                & 11 & Internal variable access control  \\ \cline{2-3}
+                                                                                & 12 & Contract balance access control  \\ \cline{2-3}
+                                                                                & 13 & Exposed secret \\ \cline{1-3}
+                \multirow{6}{*}{External Vulnerabilities}                       & 14 & Reentrancy \\ \cline{2-3}
+                                                                                & 15 & Denial of Service  \\ \cline{2-3}
+                                                                                & 16 & Poor exception handling  \\ \cline{2-3}
+                                                                                & 17 & Gasless Send  \\ \cline{2-3}
+                                                                                & 18 & Non isolated external calls  \\ \cline{2-3}
+                                                                                & 19 & Delegate calls \\ \cline{1-3}
+                Arithmetic Vulnerabilities                                      & 20 & Integer under/over flow \\ \cline{1-3}
+                \multirow{3}{*}{Gas related Vulnerabilities}                    & 21 & Denial of Service\\ \cline{2-3}
+                                                                                & 22 & Integer under/over flow  \\ \cline{2-3}
+                                                                                & 23 & Unbounded mass operations  \\ \cline{1-3}
+                \multirow{2}{*}{Transaction related Vulnerabilities}            & 24 & Transaction ordering dependency\\ \cline{2-3}
+                                                                                & 25 & Transaction state dependency  \\ \cline{1-3}
+                Block related Vulnerabilities                                   & 26 & Block state dependency  \\ \cline{1-3}
+            \end{tabular}
+            \label{table:vulnerabilities}
+            \caption{List of vulnerabilities according to their domain}
+        \end{center}
+\end{table}
+
+\textbf{Interface Violations:} 
+Interface violations refer to implementing particular digital assets on the
+Ethereum blockchain without fully aligning with the defacto community accepted
+requirements. For example, ERC-20 tokens [eth website to erc20] need to expose a
+particular API interface to help third-party services communicate with their
+Smart Contract flawlessly. If a developer decides to implement a non-ERC-20
+compliant token, it might be considered suspicious and thus malicious.
+
+\textbf{Compiler version inconsistency:}
+Solidity source code files include a header line stating the versions of
+compiler they can be complied with. A similar to Javascript notation can be used
+to indicate the minor compiler version (caret character). This notation can
+produce execution inconsistency in different execution environments. For this
+reason, it is better to declare a stable compiler version precisely.
+Nevertheless, we can argue with this proposal from Tikhomirov et al. since using
+a stable compiler version might make a Smart Contract obsolete and incapable of
+running on newer EVM versions.
+
+\textbf{Variable visibility modifiers:}
+Many developers migrating from traditional programming languages mistake the
+\emph{private} variable modifier as not visible to others. This is a
+misunderstanding since every Smart Contract state variable is visible to anyone.
+The term \emph{private} means that other Smart Contract instances can not access
+this variable.
+
+\textbf{Function visibility level:}
+In Solidity, a function can have three visibility levels. These are external,
+internal, and public. Likewise to the previous coding pitfall, many developers
+might misinterpret the meaning of these modifiers and use them wrong.
+
+\textbf{Argument validation:}
+It is a common practice to adopt for every Smart Contract function. For example,
+when we receive a string of a maximum of eight characters long, we should check
+that its length is valid. However, this practice can require more computational
+complexity and yield more gas fees. It should be used when needed.
+
+\textbf{Costly coding schemes:}
+In Solidity, different data structures have different gas costs, but they can
+achieve the same result most of the time. For instance, a developer should use
+pure bytes instead of using a byte array because they have lower gas fees.
+Moreover, loops a the most common coding scheme to avoid since a loop of an
+unknown length comes with high execution cost.
+
+\textbf{Redundant Fallback Function:}
+Solidity supports a fallback/receive function triggered when no function
+signature matches the transaction data. This function deposits the incoming
+value to the contract balance when a transaction has value but no data.
+Similarly, it handles any transaction that has unknown function signatures. A
+fallback/receive function should be implemented only when needed; otherwise, it
+is redundant.
+
+\textbf{Code format/style violation:}
+Smart Contract developers should use tidy and easy-to-read styling patterns
+throughout the code.
+
+\textbf{Ether Freezing:}
+A Smart Contract, as mentioned earlier, has its balance of Ether. Different
+types of applications require the user to deposit Ether to participate in a
+lucky draw or an online game etc. Some Smart Contract will accept deposits, but
+under specific conditions, it might lock Ether forever, acting as a black hole.
+Something similar happened in 2017 with Parity wallet Smart Contract. The bug
+occurred because the Parity wallet transferred funds using an external library.
+That library was accidentally removed from the blockchain, and thus all Ether in
+Parity wallet became inaccessible. Further, according to Nikolic et al. another
+case where funds can be locked in a Smart Contract is when the contract is
+removed from the blockchain, and some users continue to send Ether to it. These
+Ether will be lost as well.
+
+\textbf{Destroybale Contract:}
+Smart Contracts, out of the box, give the ability to their owners or an
+authorized entity to destroy them. The funds enclosed in the Smart Contract will
+be returned to the owner by default. However, if an arbitrary account can
+destroy the Smart Contract, it alarms a vulnerability. This abnormal code
+behavior might have been maliciously constructed and helped an attacker harvest
+any Ether in the Smart Contract's balance when combined with other attacks.
+
+\textbf{Internal variable access control}
+With the term internal variable access control, we refer to insecure Smart
+Contract implementation that allows an adversarial entity to alter the internal
+state of the Smart Contract. This kind of behavior can be combined with the
+earlier mentioned Destruction vulnerability. For instance, an attacker leverages
+his ability to alter the Smart Contract owner variable before the Destruction.
+Besides that, attackers might straight forward access the contract's private
+variables value or logic, revealing an important secret. 
+
+\textbf{Contract balance access control}
+Like internal variable access control, a Smart Contract that can be invoked to
+transfer money to an arbitrary account appears questionable. We define arbitrary
+accounts as addresses that have never deposited Ether into a Smart Contract but
+can withdraw value from it. 
+
+\textbf{Delegate calls}
+
+\textbf{Reentrancy}
+
+\textbf{Denial of Service}
+
+\textbf{Poor exception handling}
+
+\textbf{Gasless Send}
+
+\textbf{Non isolated external calls}
+
+\textbf{Integer under/over flow}
+
+\textbf{Unbounded mass operations}
+
+\textbf{Transaction ordering dependency}
+
+\textbf{Transaction state dependency}
+
+\textbf{Block state dependency}
+
+\pagebreak
 
 \subsection{Static Analysis}
 
