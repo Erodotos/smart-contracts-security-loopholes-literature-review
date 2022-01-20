@@ -417,38 +417,210 @@ accounts as addresses that have never deposited Ether into a Smart Contract but
 can withdraw value from it. 
 
 \textbf{Delegate calls}
+In Solidity, developers can call third-party Smart Contracts already deployed on
+the Ethereum blockchain. This technique is called delegate call and has the
+advantage of reducing the initial gas costs required to get an application
+online. However, if the third-party library is exposed or destructed, it
+directly affects the execution of our application. Thus, a delegate call might
+lead to security pitfalls.
 
 \textbf{Reentrancy}
+We consider the function of a Smart Contract reentrant when it executes an
+external call to a contract that maliciously calls back again the caller
+function. In other words, there is a recursive entrance to the initial function.
+This phenomenon can be problematic, especially in cases where the code being
+executed leads to Ether withdrawals. This issue became famous during the DAO[]
+hack back in 2016.
 
 \textbf{Denial of Service}
+Denial of Service is a well-known attack in many systems. Essentially, the
+attacker removes the Smart Contract availability to other users. This is
+attainable when a condition within the Smart Contract's code relies on the
+result of an external call or input. The callee might permanently fail to
+respond to that call, preventing the caller from ending its execution.
 
 \textbf{Poor exception handling}
+Exception disorder is a common problem in Smart Contracts and depends on poor
+exception handling when a contract calls another. The failure to call another
+contract function may result in different errors, and various handling is
+needed. Instead, most developers do not check for these exceptions, and
+subsequently, these transactions fail. This can be problematic in several cases,
+primarily when Ether is in transit, and any code executed until the fail point
+will revert.
 
 \textbf{Gasless Send}
+According to Consesys[], the send() function is wrong since it only forwards
+2300 gas. This can cause problems if the fallback function of another Smart
+Contract is costly to execute and fails. Further, gas prices might change in the
+future, and 2300 will not be enough to cover any functionality that can be
+performed today with 2300 gas units.
 
 \textbf{Non isolated external calls}
+Having several call invocations in a loop is not a good idea. This is because
+the failure of one call might lead to canceling all preceding calls in the loop.
+Hence we need each call to be isolated. For instance, good practice in
+withdrawals is the pull mechanism[], where a user initiates the transaction for
+withdrawing Ether to his address. Hence, its transaction will not affect any
+other transactions.
 
 \textbf{Integer under/over flow}
+In Solidity, integer over/under-flows can happen. For example, a uint8 integer
+can take values from 0 to 256. If the current state of a uint8 variable is 0 and
+we subtract 1 from it, its value will rotate to 256. Nevertheless, this issue is
+being resolved in newer Solidity versions [].
 
 \textbf{Unbounded mass operations}
+Unbounded mass operations mainly refer to loops. Iterating over a large data
+structure, like arrays, might result into out of gas exceptions. Each block
+allows only a specific amount of gas, and when exceeded, we get an exception,
+and our transaction fails.
 
 \textbf{Transaction ordering dependency}
-
-\textbf{Transaction state dependency}
+Transaction ordering dependency is another vulnerability to think about. Some
+transactions are essential to execute in a particular order to produce the
+desired outcome. For example, a user wants to sell tokens to a smart contract
+for Ether using a contract-defined rate. The maligned Smart Contract owner
+issues an order to reduce that rate and ensures his order is executed first.
+This results in tricking the user into accepting a different exchange rate.
 
 \textbf{Block state dependency}
-
-\pagebreak
+Block state includes information such as block number and timestamp. This
+information is insecure to use as input for the Smart Contract functions.
+Notably, it is not secure to use them as a source of randomness since they are
+predictable, and any adversarial entity might use them for its interest to
+simulate the outcome of a tranasction.
 
 \subsection{Static Analysis}
 
+Static analysis is an automated method of analyzing software without executing
+its code. This is achieved by only considering the behavior of statements and
+declarations throughout the code. Static analysis frameworks achieve that by
+employing formal methods such as data flow analysis, model checking, inference
+rules, semantic language analysis, and symbolic execution. 
+
+Using the data flow analysis, tools can produce a control flow graph. This graph
+depicts how a program can be separated into basic blocks[] and how each block
+connects, forming different execution paths. In addition, using model checking,
+we can observe if a program meets certain conditions and has a finite state.
+Inference rules are first-order logic statements representing any code
+dependencies and logical actions. Besides that, we use semantic analysis to
+reflect how a programming language works. In our case, we are interested in
+Solidity bytecode semantic rules formalization. Using these semantics, we can
+verify a Smart Contract's correctness. Ultimately, a more practical approach
+comes with symbolic execution. Symbolic execution explores possible execution
+paths assuming symbolic inputs. The final result of the execution generates a
+set of expressions and constraints involving the program variables. We feed
+these constraints into a constraint satisfiability solver to generate concrete
+inputs for the paths found.
+
+One of the first works on this topic was proposed back in 2016 by Luu et al.[],
+presenting the first of its kind tool called OYENTE. OYENTE operates using the
+Smart Contract's bytecode, and it is mainly based on symbolic execution. The
+researchers preferred to use symbolic execution since it is easier to reason
+about a program path-by-path. The engine of this framework extracts the CFG out
+of the Smart Contract bytecode, distinguishes valid execution paths, and
+eventually uses the Z3 Bytevector solver[] to generate tangible values
+validating any vulnerabilities. We note that OYENTE evaluated using 19366 Smart
+Contracts with 350 seconds per contract average analysis time. Also, this tool
+yields many false positives. Follow-up work has been proposed with the tool
+named Manticore[]. Mossberg et al. take a different approach to path
+exploration, defining three states that a Smart Contract can be. They suggest
+that a contract can be Ready, Busy, or Terminated. In particular, their
+framework tries to explore the different states that a Smart contract can be
+during its execution using various heuristics. Afterward, they feed to each
+Ready state a symbolic transaction. Manticore is a modular framework that allows
+different SMT solvers to be used. Regarding this framework evaluation, the
+authors tested it using only 100 Smart Contracts, which is not a representative
+amount of contracts in arguing about the tool's scalability. Another drawback of
+this tool is that it only achieves 66\% code coverage on average, which is
+relatively low. MAIAN[] is another symbolic execution framework proposed by
+Nikolic et al., having good true positive results in detecting the Contract
+balance access control and Destroyable contract vulnerabilities. Furthermore,
+Krupp et al. suggested their tool, teEther, based on the same logic.
+Nevertheless, their work is inadequate since they analyzed 815 contracts out of
+the 33195 they collected. They stated that only 815 contracts exposed critical
+paths. According to their assumptions, a critical path leads to Smart Contract
+external influence. Hence, their result granularity is very strict.
+
+On the other hand, Securify[] utilizes data flow analysis, model checking,
+inference rules, and semantic language analysis to detect vulnerabilities. In
+more detail, this framework takes as input EVM bytecode and a set of predefined
+security patterns. Next uses the semantic facts of the EVM, including some CFG
+data, to match any security issues found according to the given patterns. One of
+the drawbacks of this tool is that it assumes the bytecode instruction (sstore),
+malicious since it can not realize it correctly using semantic analysis. This
+fact might lead to false positives. Eventually, Tsankov et al. evaluated
+Securify using 24594 Smart Contracts. Comparing this kind of tool with symbolic
+execution-only tools, we observe that it is more successful with fewer false
+positives.
+
+An alternative school of thought within the static analysis sphere leverages
+abstract interpretation to analyze Smart Contracts. Well-known studies following
+this method are Zeus[], SmartCheck, Slither, Vandal, and MadMax. Initially, they
+take as input Solidity source code or bytecode and translate it into an
+intermediate representation. Such representations can be in XML form [smart
+check] or LLVM[zeus] code. Next, similar to Securify, these tools take a set of
+predefined policies as input and translate them into an intermediate
+representation. The final step is familiar with the previously described tool
+where an SMT solver tries to analyze points in the code where the policy
+verification predicates need to be asserted. Zeus, Slither, and Smart check are
+evaluated with 22493, 4600, and 1000 Smart Contracts, respectively. The three of
+them have significantly better results than Securify, with Zeus reporting only a
+2\% false-positive rate. MadMax, which is based on Vandal framework, is a
+vulnerability detection tool specifically designed to catch out-of-gas
+exceptions. Surprisingly, MadMax can analyze the whore blockchain, snappy, with
+an average analysis time of 8 seconds per contract and a reasonably low
+false-positive rate.
+
 \subsection{Dynamic Analysis}
+In contrast to Static analysis, Dynamic analysis aims to detect any code
+vulnerabilities during the runtime of a program. It is a matter of the fact that
+Dynamic analysis produces almost zero false positives since every explored path
+is being executed. Therefore, we know for sure that it is reachable. There are
+two main approaches when using Dynamic analysis, instrumentation, and fuzzing.
+In the Smart Contract auditing research domain, most works are fuzzing oriented.
 
-\subsection{Symbolic Execution}
+The concept of fuzzing is inspired by random input generation for programs
+expecting to crash them and reveal potential vulnerabilities. A fuzzing engine
+generally comprises the input generator and the monitor that detect errors
+during the program run time. In addition to pure random value generation, we
+have mutation-based fuzzing, aiming to expose a more narrow domain of bugs.
+Fuzzing is a contemporary practice taken when analyzing Smart Contracts. 
 
-\subsection{Fuzzing}
+ContractFuzzer[] is a state-of-the-art framework transcending the complex and
+unsolvable mathematic constraints of Static Analysis. GasFuzzer takes a Smart
+Contract's application binary interface (ABI), extracts the function signatures,
+and uses them to generate possible inputs. Afterward, the code is executed using
+the generated inputs, while executions logs are dumped into an external log
+pool. Eventually, predefined error detection oracles pass through the recorded
+logs to identify potential bugs. It is worth noting that during the execution of
+the Smart Contracts, researchers initiated transactions coming from different
+types of accounts (owner address, external address, attacker Smart Contract
+address). This is something we could not accomplish using Static Analysis. 
 
-\subsection{The Machine Learning Approach}
+Building on top of Contract Fuzzer, Ashraf et al. created Gas Fuzzer[], a
+gas-oriented fuzzing tool. This tool employs two different methods of fuzzing,
+gas-greedy, and gas-leveling. The gas-greedy strategy generates random
+transactions putting them in a pool. The fuzzing engine takes one, mutates it,
+and then executes it. If the mutated transaction gas is more than the
+pre-mutated transaction, the first one is placed back to the transaction pool.
+In the meantime, the Gas Fuzzer checks the execution fingerprint of the mutated
+transaction for potential vulnerabilities. This process runs iteratively until a
+predefined runtime timeout reaches. On the other hand, gas leveling introduces
+the concept of delivering to the fuzz engine transactions consuming gas of
+different levels. This strategy seeks to report the code coverage reached using
+different amounts of gas. Once coverage converges to its maximum, the tool
+checks for bugs using the execution log. 
+
+Some other fuzzing extends Static Analysis techniques to achieve their goals.
+Namely, Reguard, a reentrancy detection framework, uses Static Analysis to
+translate into intermediate representation before generating any random values.
+In more detail in this work, researchers attempt to translate Solidity into C++
+to use an out-of-the-box fuzzing engine, AFL[]. Eventually, they check for bugs
+using the execution log, which they feed into automata describing the reentrancy
+vulnerability.
+
+\subsection{Future Directions}
 
 \section{Summary \& Conclusion}
 
