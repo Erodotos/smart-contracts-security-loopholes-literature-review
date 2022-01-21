@@ -59,7 +59,16 @@
 %                       Insert your abstract HERE
 %                       
 \begin{abstract}
-
+        Smart Contracts enable blockchain systems to run decentralized
+        applications. Unfortunately, Smart Contract platforms such as Ethereum
+        face severe security problems leading to permanent funds loss. In recent
+        years many researchers focused on developing security vulnerability
+        detection tools for Smart Contracts. The present literature review aims
+        to analyze relevant studies providing an overview of the current Smart
+        Contract attack surface and the techniques being used to detect any
+        vulnerabilities. Analyzing Smart Contracts can be challenging, but we
+        are indeed on a promising path towards creating reliable and scalable
+        Smart Contract vulnerability detection tools.
 \end{abstract}
 
 \vspace*{1cm}
@@ -88,84 +97,90 @@ Date: \today
 During the predawn of the 21st century, we glimpsed a rapid technological and
 economic development that brought us face to face with a new technology called
 the blockchain. In recent years, blockchain and foremost cryptocurrencies gained
-much attraction due to the high monetary gains, which seem astronomical compared
-to traditional stock markets. It is a matter of the fact that this growth has
-acted as a catalyst for the technological and research eruption we have been
-experiencing lately. By the end of 2021, the total cryptocurrency market
-capitalization was 2 Trillion US Dollars[], featuring more than 16000 projects[].
-Initially, the blockchain was proposed to facilitate the transfer of value
-completely decentralized and trust-framed over a network of peers. This was
-Satoshi's Nakamoto Bitcoin[] that came into existence in 2008. Since then, the
-research and technological trends have shifted into second-generation
-blockchains. Among them, the most dominant is Ethereum[]. Ethereum is a
-general-purpose blockchain, providing an open platform for individuals to build
-their applications on top of it. Their applications, i.e., Smart Contracts, are
-pieces of code that run decentralized on the Ethereum network. This allows
-developers to get involved in this new technology, creating an entirely new
-industry. Ethereum's ecosystem flared into a broad spectrum of Smart Contract
-applications, including, but not limited to, financial apps, games, digital art
-and music, digital voting, and patent registration. 
+much attraction due to the high monetary gains. It is a matter of the fact that
+this growth has acted as a catalyst for the technological and research eruption
+we have been experiencing lately. By the end of 2021, the total cryptocurrency
+market capitalization was 2 Trillion US Dollars\cite{coinmarketcap}, featuring
+more than 16000 projects\cite{coinmarketcap}. Initially, the blockchain was
+proposed to facilitate the transfer of value completely decentralized and
+trust-framed over a network of peers. This was Satoshi's Nakamoto
+Bitcoin\cite{nakamoto2008bitcoin} that came into existence in 2008. Since then,
+the research and technological trends have shifted into second-generation
+blockchains. Among them, the most dominant is
+Ethereum\cite{buterin2013ethereum}. Ethereum is a general-purpose blockchain,
+providing an open platform for individuals to build their applications on top of
+it. Their applications, i.e., Smart Contracts, are pieces of code that run
+decentralized on the Ethereum network. Ethereum's ecosystem flared into a broad
+spectrum of Smart Contract applications, including, but not limited to,
+financial apps, games, digital art and music, digital voting, and patent
+registration. 
 
 Smart Contracts have balance measured in Ether and persistent private storage.
 The Smart Contract's code can manipulate changes in the program's variables and
-storage. On Ethereum, Smart Contracts code is in EVM[] (Ethereum Virtual
-Machine), a Turing complete stack-based bytecode language spanning 144 OP
-codes[]. Nonetheless, developers can define their code in a high-level language
-such as Solidity[], compiled to EVM bytecode afterward. A new transaction
-invocation can cause the execution of the contract's code by receiving inputs
-and producing outputs. Typically, when a user wants to trigger a Smart Contract
-needs to create a new transaction and pay some fees[]. Transaction fees depend on
-the code being executed on the Ethereum network.
+storage. On Ethereum, Smart Contracts code is in EVM\cite{evm} (Ethereum Virtual
+Machine), a Turing complete stack-based bytecode language spanning 144
+opcodes\cite{opcodes}. Developers can define their code in a high-level
+language such as Solidity\cite{solidity}, compiled to EVM bytecode afterward. A new
+transaction invocation can cause the execution of the contract's code by
+receiving inputs and producing outputs. Typically, when a user wants to trigger
+a Smart Contract needs to create a new transaction and pay some fees\cite{gas_fees}.
+Transaction fees depend on the code being executed on the Ethereum network.
 
 Beyond any doubt, the Ethereum blockchain is used to manage digital assets
 reflecting a considerable value. Hence Smart Contracts gained the interest of
 malign entities. Numerous attackers perform attacks on the Ethereum
 applications, with the ultimate goal of stealing Ether from them. One of the
-most severe attacks was the infamous DAO[]. In more detail, in 2016, an
+most severe attacks was the infamous DAO\cite{dao}. In more detail, in 2016, an
 autonomous decentralized organization was founded to direct a venture capital
 fund. This organization was formed on the Ethereum blockchain, and over 11000
-investors deposited into a Smart Contract over 150 Million US Dollars[]
-considering the Ether price back then. Then, an unprecedented attack[] was
-performed on that Smart Contract, resulting in 50 Million US Dollars loss.
-Another critical incident happened with the Parity Wallet[], where the attack []
-led to freezing 150 Million US Dollars, in terms of Ether, impermanently.
+investors deposited into a Smart Contract over 150 Million US Dollars\cite{dao}
+considering the Ether price back then. Then, an unprecedented
+attack\cite{reentrancy} was performed on that Smart Contract, resulting in 50
+Million US Dollars loss. Another critical incident happened with the Parity
+Wallet\cite{parity}, where the attack led to freezing 150 Million US Dollars, in
+terms of Ether, impermanently.
 
 Nevertheless, it is typical for any piece of code to have bugs. Likewise, we
-expect Smart Contracts to behave in the same way. Potentially, five main reasons
-make Smart Contracts vulnerable. We might blame developers for not wholly
-understanding the blockchain development stack[smart check]. Also, Solidity is a
-relatively new language with many limitations and challenges. Thus, it is hard
-for developers to use it[smart check]. We consider blockchain immutability as
+expect Smart Contracts to behave in the same way. Potentially, Smart Contracts
+are vulnerable due to many reasons. To begin with we might blame developers for
+not wholly understanding the blockchain development
+stack\cite{tikhomirov2018smartcheck}. Also, Solidity is a relatively new
+language with many limitations and challenges. Thus, it is hard for developers
+to use it\cite{tikhomirov2018smartcheck}. We consider blockchain immutability as
 another non-helping characteristic. Any application deployed on the Ethereum
 network can not be modified, so software fixes are not immediately
-doable[contract fuzzer]. A public blockchain allows financially motivated
-attackers to use their online pseudonymity to exploit any software bug[smart
-check]. Finally, we cannot control the Smart Contract execution environment
-since the network runs in a decentralized fashion[smart check]. For this reason,
-Smart Contract developers need to detect possible vulnerabilities in their code
-before going live. A Smart Contract Auditing tool would benefit both users and
-developers. A developer might use the tool to detect any code issues before
-deploying the Smart Contract. At the same time, users can utilize the tool to
-check if the Smart Contract they are depositing Ether is safe and does behave
-maliciously.
+doable\cite{jiang2018contractfuzzer}. Also, a public blockchain allows
+financially motivated attackers to use their online pseudonymity to exploit any
+software bug\cite{tikhomirov2018smartcheck}. Finally, we cannot control the
+Smart Contract execution environment since the network runs in a decentralized
+fashion\cite{tikhomirov2018smartcheck}. For this reason, Smart Contract
+developers need to detect possible vulnerabilities in their code before going
+live. A Smart Contract Auditing tool would benefit both users and developers. A
+developer might use the tool to detect any code issues before deploying the
+Smart Contract. At the same time, users can utilize the tool to check if the
+Smart Contract they want to interact with is safe and does behave maliciously.
 
 Indeed, such tools came into existence in 2016, with the first one being
-OYENTE[]. Since then, academic researchers have invested time and effort in
+OYENTE\cite{luu2016making}. Since then, academic researchers have invested time and effort in
 expanding this research field, developing a plethora o tools. Some of them are
 general, trying to detect any vulnerability, while some others focus on a few of
-them. Also, they employ different analysis techniques, such as Static Analysis,
-Dynamic Analysis, Symbolic Execution, Fuzzing, and Machine Learning.
-Furthermore, researchers attempted to document and classify many of these
-vulnerabilities according to their behavior or functionality.
+them. Also, they employ different analysis techniques, such as Static and
+Dynamic Analysis. Furthermore, researchers attempted to document and classify
+many of these vulnerabilities according to their behavior or functionality.
 
-The contribution of this work is three-fold. Initially, we document and classify
+The contribution of this work is two-fold. Initially, we document and classify
 Smart Contract vulnerabilities reported across the most prominent studies. Next,
 we present the research trends of developing a Smart Contract vulnerability
 framework throughout the years, giving an overview of the techniques used and
-directions taken. Finally, we elaborate on the result reliability and
-scalability of the most paramount frameworks.
+directions taken.
 
-The structure of the following literature review has as follows ...
+The structure of the following literature review has as follows. The next
+section, \emph{Methodology}, describes our strategy for selecting papers to
+include in this literature review. Later we separate the review into three
+sections. \emph{Smart Contract Attack Surface}, \emph{Static Analysis}, and
+\emph{Dynamic Analysis}. Finally, we wrap-up this literature review with a
+\emph{Summary anc Conclusion} section, where we disguss our findings, as well
+as, future directions in the Smart Contract Vulnerability detection area.
 
 \section{Methodology}
 
@@ -189,14 +204,14 @@ to identify remarkable research articles rapidly. Afterward, we manually
 inspected the search results and included the most reliable in our under
 investigation list.
 
-Namely, we collected forty-seven papers, but we only consider nineteen of them
+Namely, we collected forty-seven papers, but we only consider thirteen of them
 in this literature review. The selection criteria span the context of the
 studies and their research contribution. We measure their contribution according
 to their citations and release year. According to their publication year,
 studies are assigned a weight ranging from 1 to 4. Papers in the span of
 2016-2017, 2018, 2019, 2020  receive 1, 2, 4, 8 points, respectively, for each
 citation they hold. Using this metric, we evaluate the studies shown in Table
-\ref{table:studies}.
+1.
 
 \begin{table}[t]
         \begin{center}
@@ -207,20 +222,20 @@ citation they hold. Using this metric, we evaluate the studies shown in Table
                 \hline
                 \hline
                 Making Smart Contracts Smarter & 2016  & 1445 & 1445 & \cite{luu2016making} \\
-                \hline
-                A Survey of Attacks on Ethereum Smart Contracts (SoK) & 2017  & 1176 & 1176 & \cite{atzei2017survey} \\
+                % \hline
+                % A Survey of Attacks on Ethereum Smart Contracts (SoK) & 2017  & 1176 & 1176 & \cite{atzei2017survey} \\
                 \hline
                 Securify: Practical Security Analysis of Smart Contracts & 2018  & 436 & 872 & \cite{tsankov2018securify} \\
-                \hline
-                VerX: Safety Verification of Smart Contracts & 2020  & 103 & 824 & \cite{permenev2020verx} \\
+                % \hline
+                % VerX: Safety Verification of Smart Contracts & 2020  & 103 & 824 & \cite{permenev2020verx} \\
                 \hline
                 ZEUS: Analyzing Safety of Smart Contracts  & 2018  & 399 & 798 & \cite{kalra2018zeus} \\
                 \hline
                 Finding The Greedy, Prodigal, and Suicidal Contracts at Scale & 2018  & 357 & 714 & \cite{liu2018reguard} \\
                 \hline
                 SmartCheck: Static Analysis of Ethereum Smart Contracts & 2018  & 291 & 582 & \cite{tikhomirov2018smartcheck} \\
-                \hline
-                Formal Verification of Smart Contracts & 2016  & 525 & 525 & \cite{bhargavan2016formal} \\
+                % \hline
+                % Formal Verification of Smart Contracts & 2016  & 525 & 525 & \cite{bhargavan2016formal} \\
                 \hline
                 ContractFuzzer:Fuzzing Smart Contracts for Vulnerability Detection & 2018  & 233 & 466 & \cite{jiang2018contractfuzzer} \\
                 \hline
@@ -235,15 +250,15 @@ citation they hold. Using this metric, we evaluate the studies shown in Table
                 Vandal:A Scalable Security Analysis Framework for Smart Contracts & 2018  & 154 & 308 & \cite{brent2018vandal} \\
                 \hline
                 ReGuard: Finding Reentrancy Bugs in Smart Contracts & 2018  & 122 & 244 & \cite{liu2018reguard} \\
-                \hline
-                Ethereum Smart Contracts: Vulnerabilities and their Classifications & 2020  & 12 & 96 & \cite{khan2020ethereum} \\
-                \hline
-                ETHPLOIT:From Fuzzing to Efficient Exploit Generation against Smart Contracts & 2020  & 10 & 80 & \cite{zhang2020ethploit} \\
+                % \hline
+                % Ethereum Smart Contracts: Vulnerabilities and their Classifications & 2020  & 12 & 96 & \cite{khan2020ethereum} \\
+                % \hline
+                % ETHPLOIT:From Fuzzing to Efficient Exploit Generation against Smart Contracts & 2020  & 10 & 80 & \cite{zhang2020ethploit} \\
                 \hline
                 GasFuzzer: Fuzzing Ethereum Smart Contract Binaries to Expose Gas-Oriented Exception Security Vulnerabilities & 2020  & 8 & 64 & \cite{ashraf2020gasfuzzer} \\
                 \hline
-                SoliAudit: Smart Contract Vulnerability Assessment Based on Machine Learning and Fuzz Testing & 2019  & 13 & 52 & \cite{liao2019soliaudit} \\
-                \hline
+                % SoliAudit: Smart Contract Vulnerability Assessment Based on Machine Learning and Fuzz Testing & 2019  & 13 & 52 & \cite{liao2019soliaudit} \\
+                % \hline
             \end{tabular}
             \label{table:studies}
             \caption{List of papers that are analyzed in this literature review, sorted by their score}
@@ -258,31 +273,28 @@ One of the most important aspects of Smart Contract vulnerability detection
 tools is understanding and realizing models that precisely describe a
 vulnerability. Different authors have unique approaches on how to classify
 potential faulty code. For example, according to their overall behavior,
-Nikolic et al. [Finding greedy ...] categorize Smart Contract into Greedy,
+Nikolic et al. \cite{nikolic2018finding} categorize Smart Contract into Greedy,
 Prodigal, and Suicidal. Namely, each category represents an abstract
 representation of a group of more explicit vulnerabilities. On the other hand,
 some other authors prefer to distinguish vulnerabilities based on the domain
-they affect. For example, a few studies, like GasFuzzer [gas fuzzer], choose to
+they affect. For example, a few studies, like GasFuzzer \cite{ashraf2020gasfuzzer}, choose to
 examine only gas-oriented vulnerabilities. Subsequently, it is abundantly clear
 that there is a broad spectrum of Smart Contract vulnerabilities, and there is
 not a single universally accepted classification of them. In 2017 Atzei et al.
-[sok] published a survey including the most well-known security pitfalls of the
+\cite{atzei2017survey} published a survey including the most well-known security pitfalls of the
 Ethereum Smart Contracts. In more detail, they report twelve points,
 taxonomizing them into three categories (Solidity-Level, EVM-Level, and
 Blockchain-Level). Four years and over ten million blocks later, new
 vulnerabilities arose. Hence, within the context of this literature review, we
 have collected reported vulnerabilities across different studies and present a
-thorough list of them, trying to categorize them into seven groups.
+thorough list of them, trying to categorize them into six groups.
 
-We categorize vulnerabilities according to their domain. In the first place, we
-noticed that a few frameworks tend to include in their auditing report warnings
-related to Smart Contract syntax or related good programming practices. Thus, we
-included a category to wrap up all of these suggestions. Furthermore, we have
-classes referring to internal, external, and arithmetic bugs. Finally, we
+We categorize vulnerabilities according to their domain. We have
+classes referring to internal, external, and arithmetic bugs. Also, we
 introduce two more categories to enclose transaction and block dependency
-exposures. Ultimately, we report twenty-two vulnerabilities over these domains
+exposures. Ultimately, we report eighteen vulnerabilities over these domains
 (Note: a vulnerability might be part of multiple domains). Table 2 depicts the
-category and vulnerability mappings. The following subsections describe each
+category and vulnerability mappings. The following describe each
 vulnerability in more detail.
 
 \begin{table}[t]
@@ -293,97 +305,97 @@ vulnerability in more detail.
                 Class & No. & Vulnerability Name\\ 
                 \hline
                 \hline
-                \multirow{8}{*}{Syntax Violations}                              & 1  & Interface violation \\ \cline{2-3}
-                                                                                & 2  & Compiler version inconsistency \\ \cline{2-3}
-                                                                                & 3  & Variable visibility modifiers \\ \cline{2-3}
-                                                                                & 4  & Function visibility level  \\ \cline{2-3}
-                                                                                & 5  & Argument validation  \\ \cline{2-3}
-                                                                                & 6  & Costly coding scheme  \\ \cline{2-3}
-                                                                                & 7  & Redundant Fallback Function  \\ \cline{2-3}
-                                                                                & 8  & Code format/style violation  \\ \cline{1-3}
-                \multirow{5}{*}{Internal Vulnerabilities}                       & 9  & Ether Freezing \\ \cline{2-3}
-                                                                                & 10 & Destroybale Contract  \\ \cline{2-3}
-                                                                                & 11 & Internal variable access control  \\ \cline{2-3}
-                                                                                & 12 & Contract balance access control  \\ \cline{2-3}
-                                                                                & 13 & Exposed secret \\ \cline{1-3}
-                \multirow{6}{*}{External Vulnerabilities}                       & 14 & Reentrancy \\ \cline{2-3}
-                                                                                & 15 & Denial of Service  \\ \cline{2-3}
-                                                                                & 16 & Poor exception handling  \\ \cline{2-3}
-                                                                                & 17 & Gasless Send  \\ \cline{2-3}
-                                                                                & 18 & Non isolated external calls  \\ \cline{2-3}
-                                                                                & 19 & Delegate calls \\ \cline{1-3}
-                Arithmetic Vulnerabilities                                      & 20 & Integer under/over flow \\ \cline{1-3}
-                \multirow{3}{*}{Gas related Vulnerabilities}                    & 21 & Denial of Service\\ \cline{2-3}
-                                                                                & 22 & Integer under/over flow  \\ \cline{2-3}
-                                                                                & 23 & Unbounded mass operations  \\ \cline{1-3}
-                \multirow{2}{*}{Transaction related Vulnerabilities}            & 24 & Transaction ordering dependency\\ \cline{2-3}
-                                                                                & 25 & Transaction state dependency  \\ \cline{1-3}
-                Block related Vulnerabilities                                   & 26 & Block state dependency  \\ \cline{1-3}
+                % \multirow{8}{*}{Syntax Violations}                              & 1  & Interface violation \\ \cline{2-3}
+                %                                                                 & 2  & Compiler version inconsistency \\ \cline{2-3}
+                %                                                                 & 3  & Variable visibility modifiers \\ \cline{2-3}
+                %                                                                 & 4  & Function visibility level  \\ \cline{2-3}
+                %                                                                 & 5  & Argument validation  \\ \cline{2-3}
+                %                                                                 & 6  & Costly coding scheme  \\ \cline{2-3}
+                %                                                                 & 7  & Redundant Fallback Function  \\ \cline{2-3}
+                %                                                                 & 8  & Code format/style violation  \\ \cline{1-3}
+                \multirow{5}{*}{Internal Vulnerabilities}                       & 1  & Ether Freezing \\ \cline{2-3}
+                                                                                & 2 & Destroybale Contract  \\ \cline{2-3}
+                                                                                & 3 & Internal variable access control  \\ \cline{2-3}
+                                                                                & 4 & Contract balance access control  \\ \cline{2-3}
+                                                                                & 5 & Exposed secret \\ \cline{1-3}
+                \multirow{6}{*}{External Vulnerabilities}                       & 6 & Reentrancy \\ \cline{2-3}
+                                                                                & 7 & Denial of Service  \\ \cline{2-3}
+                                                                                & 8 & Poor exception handling  \\ \cline{2-3}
+                                                                                & 9 & Gasless Send  \\ \cline{2-3}
+                                                                                & 10 & Non isolated external calls  \\ \cline{2-3}
+                                                                                & 11 & Delegate calls \\ \cline{1-3}
+                Arithmetic Vulnerabilities                                      & 12 & Integer under/over flow \\ \cline{1-3}
+                \multirow{3}{*}{Gas related Vulnerabilities}                    & 13 & Denial of Service\\ \cline{2-3}
+                                                                                & 14 & Integer under/over flow  \\ \cline{2-3}
+                                                                                & 15 & Unbounded mass operations  \\ \cline{1-3}
+                \multirow{2}{*}{Transaction related Vulnerabilities}            & 16 & Transaction ordering dependency\\ \cline{2-3}
+                                                                                & 17 & Transaction state dependency  \\ \cline{1-3}
+                Block related Vulnerabilities                                   & 18 & Block state dependency  \\ \cline{1-3}
             \end{tabular}
             \label{table:vulnerabilities}
             \caption{List of vulnerabilities according to their domain}
         \end{center}
 \end{table}
 
-\textbf{Interface Violations:} 
-Interface violations refer to implementing particular digital assets on the
-Ethereum blockchain without fully aligning with the defacto community accepted
-requirements. For example, ERC-20 tokens [eth website to erc20] need to expose a
-particular API interface to help third-party services communicate with their
-Smart Contract flawlessly. If a developer decides to implement a non-ERC-20
-compliant token, it might be considered suspicious and thus malicious.
+% \textbf{Interface Violations:} 
+% Interface violations refer to implementing particular digital assets on the
+% Ethereum blockchain without fully aligning with the defacto community accepted
+% requirements. For example, ERC-20 tokens [eth website to erc20] need to expose a
+% particular API interface to help third-party services communicate with their
+% Smart Contract flawlessly. If a developer decides to implement a non-ERC-20
+% compliant token, it might be considered suspicious and thus malicious.
 
-\textbf{Compiler version inconsistency:}
-Solidity source code files include a header line stating the versions of
-compiler they can be complied with. A similar to Javascript notation can be used
-to indicate the minor compiler version (caret character). This notation can
-produce execution inconsistency in different execution environments. For this
-reason, it is better to declare a stable compiler version precisely.
-Nevertheless, we can argue with this proposal from Tikhomirov et al. since using
-a stable compiler version might make a Smart Contract obsolete and incapable of
-running on newer EVM versions.
+% \textbf{Compiler version inconsistency:}
+% Solidity source code files include a header line stating the versions of
+% compiler they can be complied with. A similar to Javascript notation can be used
+% to indicate the minor compiler version (caret character). This notation can
+% produce execution inconsistency in different execution environments. For this
+% reason, it is better to declare a stable compiler version precisely.
+% Nevertheless, we can argue with this proposal from Tikhomirov et al. since using
+% a stable compiler version might make a Smart Contract obsolete and incapable of
+% running on newer EVM versions.
 
-\textbf{Variable visibility modifiers:}
-Many developers migrating from traditional programming languages mistake the
-\emph{private} variable modifier as not visible to others. This is a
-misunderstanding since every Smart Contract state variable is visible to anyone.
-The term \emph{private} means that other Smart Contract instances can not access
-this variable.
+% \textbf{Variable visibility modifiers:}
+% Many developers migrating from traditional programming languages mistake the
+% \emph{private} variable modifier as not visible to others. This is a
+% misunderstanding since every Smart Contract state variable is visible to anyone.
+% The term \emph{private} means that other Smart Contract instances can not access
+% this variable.
 
-\textbf{Function visibility level:}
-In Solidity, a function can have three visibility levels. These are external,
-internal, and public. Likewise to the previous coding pitfall, many developers
-might misinterpret the meaning of these modifiers and use them wrong.
+% \textbf{Function visibility level:}
+% In Solidity, a function can have three visibility levels. These are external,
+% internal, and public. Likewise to the previous coding pitfall, many developers
+% might misinterpret the meaning of these modifiers and use them wrong.
 
-\textbf{Argument validation:}
-It is a common practice to adopt for every Smart Contract function. For example,
-when we receive a string of a maximum of eight characters long, we should check
-that its length is valid. However, this practice can require more computational
-complexity and yield more gas fees. It should be used when needed.
+% \textbf{Argument validation:}
+% It is a common practice to adopt for every Smart Contract function. For example,
+% when we receive a string of a maximum of eight characters long, we should check
+% that its length is valid. However, this practice can require more computational
+% complexity and yield more gas fees. It should be used when needed.
 
-\textbf{Costly coding schemes:}
-In Solidity, different data structures have different gas costs, but they can
-achieve the same result most of the time. For instance, a developer should use
-pure bytes instead of using a byte array because they have lower gas fees.
-Moreover, loops a the most common coding scheme to avoid since a loop of an
-unknown length comes with high execution cost.
+% \textbf{Costly coding schemes:}
+% In Solidity, different data structures have different gas costs, but they can
+% achieve the same result most of the time. For instance, a developer should use
+% pure bytes instead of using a byte array because they have lower gas fees.
+% Moreover, loops a the most common coding scheme to avoid since a loop of an
+% unknown length comes with high execution cost.
 
-\textbf{Redundant Fallback Function:}
-Solidity supports a fallback/receive function triggered when no function
-signature matches the transaction data. This function deposits the incoming
-value to the contract balance when a transaction has value but no data.
-Similarly, it handles any transaction that has unknown function signatures. A
-fallback/receive function should be implemented only when needed; otherwise, it
-is redundant.
+% \textbf{Redundant Fallback Function:}
+% Solidity supports a fallback/receive function triggered when no function
+% signature matches the transaction data. This function deposits the incoming
+% value to the contract balance when a transaction has value but no data.
+% Similarly, it handles any transaction that has unknown function signatures. A
+% fallback/receive function should be implemented only when needed; otherwise, it
+% is redundant.
 
-\textbf{Code format/style violation:}
-Smart Contract developers should use tidy and easy-to-read styling patterns
-throughout the code.
+% \textbf{Code format/style violation:}
+% Smart Contract developers should use tidy and easy-to-read styling patterns
+% throughout the code.
 
 \textbf{Ether Freezing:}
 A Smart Contract, as mentioned earlier, has its balance of Ether. Different
 types of applications require the user to deposit Ether to participate in a
-lucky draw or an online game etc. Some Smart Contract will accept deposits, but
+lucky draw or an online game etc. A Smart Contract will accept deposits, but
 under specific conditions, it might lock Ether forever, acting as a black hole.
 Something similar happened in 2017 with Parity wallet Smart Contract. The bug
 occurred because the Parity wallet transferred funds using an external library.
@@ -411,15 +423,14 @@ Besides that, attackers might straight forward access the contract's private
 variables value or logic, revealing an important secret. 
 
 \textbf{Contract balance access control}
-Like internal variable access control, a Smart Contract that can be invoked to
-transfer money to an arbitrary account appears questionable. We define arbitrary
-accounts as addresses that have never deposited Ether into a Smart Contract but
-can withdraw value from it. 
+A Smart Contract that can be invoked to transfer money to an arbitrary account.
+We define arbitrary accounts as addresses that have never deposited Ether into a
+Smart Contract but can withdraw value from it. 
 
 \textbf{Delegate calls}
 In Solidity, developers can call third-party Smart Contracts already deployed on
 the Ethereum blockchain. This technique is called delegate call and has the
-advantage of reducing the initial gas costs required to get an application
+advantage of reducing the initial gas costs required to deploy an application
 online. However, if the third-party library is exposed or destructed, it
 directly affects the execution of our application. Thus, a delegate call might
 lead to security pitfalls.
@@ -429,12 +440,12 @@ We consider the function of a Smart Contract reentrant when it executes an
 external call to a contract that maliciously calls back again the caller
 function. In other words, there is a recursive entrance to the initial function.
 This phenomenon can be problematic, especially in cases where the code being
-executed leads to Ether withdrawals. This issue became famous during the DAO[]
+executed leads to Ether withdrawals. This issue became famous during the DAO\cite{dao}
 hack back in 2016.
 
 \textbf{Denial of Service}
 Denial of Service is a well-known attack in many systems. Essentially, the
-attacker removes the Smart Contract availability to other users. This is
+attacker removes the Smart Contract availability for other users. This is
 attainable when a condition within the Smart Contract's code relies on the
 result of an external call or input. The callee might permanently fail to
 respond to that call, preventing the caller from ending its execution.
@@ -445,21 +456,21 @@ exception handling when a contract calls another. The failure to call another
 contract function may result in different errors, and various handling is
 needed. Instead, most developers do not check for these exceptions, and
 subsequently, these transactions fail. This can be problematic in several cases,
-primarily when Ether is in transit, and any code executed until the fail point
+primarily when Ether is in transit. Any code executed until the fail point
 will revert.
 
 \textbf{Gasless Send}
-According to Consesys[], the send() function is wrong since it only forwards
-2300 gas. This can cause problems if the fallback function of another Smart
-Contract is costly to execute and fails. Further, gas prices might change in the
-future, and 2300 will not be enough to cover any functionality that can be
-performed today with 2300 gas units.
+According to Consesys\cite{consensys_send}, the send() function is not recommened to use since it
+only forwards 2300 gas. This can cause problems if the fallback function of
+another Smart Contract is costly to execute and fails. Further, gas prices might
+change in the future, and 2300 gas units will not be enough to cover any
+functionality that can be executed today.
 
 \textbf{Non isolated external calls}
 Having several call invocations in a loop is not a good idea. This is because
 the failure of one call might lead to canceling all preceding calls in the loop.
 Hence we need each call to be isolated. For instance, good practice in
-withdrawals is the pull mechanism[], where a user initiates the transaction for
+withdrawals is the pull mechanism\cite{consensys_send}, where a user initiates the transaction for
 withdrawing Ether to his address. Hence, its transaction will not affect any
 other transactions.
 
@@ -467,7 +478,7 @@ other transactions.
 In Solidity, integer over/under-flows can happen. For example, a uint8 integer
 can take values from 0 to 256. If the current state of a uint8 variable is 0 and
 we subtract 1 from it, its value will rotate to 256. Nevertheless, this issue is
-being resolved in newer Solidity versions [].
+being resolved in newer Solidity versions\cite{solidity8}.
 
 \textbf{Unbounded mass operations}
 Unbounded mass operations mainly refer to loops. Iterating over a large data
@@ -480,8 +491,9 @@ Transaction ordering dependency is another vulnerability to think about. Some
 transactions are essential to execute in a particular order to produce the
 desired outcome. For example, a user wants to sell tokens to a smart contract
 for Ether using a contract-defined rate. The maligned Smart Contract owner
-issues an order to reduce that rate and ensures his order is executed first.
-This results in tricking the user into accepting a different exchange rate.
+issues a transaction to reduce that rate and ensures his transaction is executed
+first. This results in tricking the user into accepting a different exchange
+rate.
 
 \textbf{Block state dependency}
 Block state includes information such as block number and timestamp. This
@@ -499,7 +511,7 @@ employing formal methods such as data flow analysis, model checking, inference
 rules, semantic language analysis, and symbolic execution. 
 
 Using the data flow analysis, tools can produce a control flow graph. This graph
-depicts how a program can be separated into basic blocks[] and how each block
+depicts how a program can be separated into basic blocks\cite{basicBlocks} and how each block
 connects, forming different execution paths. In addition, using model checking,
 we can observe if a program meets certain conditions and has a finite state.
 Inference rules are first-order logic statements representing any code
@@ -513,17 +525,17 @@ set of expressions and constraints involving the program variables. We feed
 these constraints into a constraint satisfiability solver to generate concrete
 inputs for the paths found.
 
-One of the first works on this topic was proposed back in 2016 by Luu et al.[],
+One of the first works on this topic was proposed back in 2016 by Luu et al.\cite{luu2016making},
 presenting the first of its kind tool called OYENTE. OYENTE operates using the
 Smart Contract's bytecode, and it is mainly based on symbolic execution. The
 researchers preferred to use symbolic execution since it is easier to reason
 about a program path-by-path. The engine of this framework extracts the CFG out
 of the Smart Contract bytecode, distinguishes valid execution paths, and
-eventually uses the Z3 Bytevector solver[] to generate tangible values
+eventually uses the Z3 Bytevector solver\cite{z3Solver} to generate tangible values
 validating any vulnerabilities. We note that OYENTE evaluated using 19366 Smart
 Contracts with 350 seconds per contract average analysis time. Also, this tool
 yields many false positives. Follow-up work has been proposed with the tool
-named Manticore[]. Mossberg et al. take a different approach to path
+named Manticore\cite{mossberg2019manticore}. Mossberg et al. take a different approach to path
 exploration, defining three states that a Smart Contract can be. They suggest
 that a contract can be Ready, Busy, or Terminated. In particular, their
 framework tries to explore the different states that a Smart contract can be
@@ -531,18 +543,18 @@ during its execution using various heuristics. Afterward, they feed to each
 Ready state a symbolic transaction. Manticore is a modular framework that allows
 different SMT solvers to be used. Regarding this framework evaluation, the
 authors tested it using only 100 Smart Contracts, which is not a representative
-amount of contracts in arguing about the tool's scalability. Another drawback of
+amount of contracts to argue about the tool's scalability. Another drawback of
 this tool is that it only achieves 66\% code coverage on average, which is
-relatively low. MAIAN[] is another symbolic execution framework proposed by
-Nikolic et al., having good true positive results in detecting the Contract
-balance access control and Destroyable contract vulnerabilities. Furthermore,
-Krupp et al. suggested their tool, teEther, based on the same logic.
+relatively low. MAIAN\cite{nikolic2018finding} is another symbolic execution framework proposed by
+Nikolic et al., having good true positive results in detecting the \emph{Contract
+balance access control} and \emph{Destroyable contract} vulnerabilities. Furthermore,
+Krupp et al. suggested their tool, teEther\cite{krupp2018teether}, based on the same logic.
 Nevertheless, their work is inadequate since they analyzed 815 contracts out of
 the 33195 they collected. They stated that only 815 contracts exposed critical
 paths. According to their assumptions, a critical path leads to Smart Contract
 external influence. Hence, their result granularity is very strict.
 
-On the other hand, Securify[] utilizes data flow analysis, model checking,
+On the other hand, Securify\cite{tsankov2018securify} utilizes data flow analysis, model checking,
 inference rules, and semantic language analysis to detect vulnerabilities. In
 more detail, this framework takes as input EVM bytecode and a set of predefined
 security patterns. Next uses the semantic facts of the EVM, including some CFG
@@ -556,10 +568,9 @@ positives.
 
 An alternative school of thought within the static analysis sphere leverages
 abstract interpretation to analyze Smart Contracts. Well-known studies following
-this method are Zeus[], SmartCheck, Slither, Vandal, and MadMax. Initially, they
+this method are Zeus\cite{kalra2018zeus}, SmartCheck, Slither, Vandal, and MadMax. Initially, they
 take as input Solidity source code or bytecode and translate it into an
-intermediate representation. Such representations can be in XML form [smart
-check] or LLVM[zeus] code. Next, similar to Securify, these tools take a set of
+intermediate representation. Such representations can be in XML form \cite{tikhomirov2018smartcheck} or LLVM\cite{kalra2018zeus} code. Next, similar to Securify, these tools take a set of
 predefined policies as input and translate them into an intermediate
 representation. The final step is familiar with the previously described tool
 where an SMT solver tries to analyze points in the code where the policy
@@ -581,14 +592,15 @@ two main approaches when using Dynamic analysis, instrumentation, and fuzzing.
 In the Smart Contract auditing research domain, most works are fuzzing oriented.
 
 The concept of fuzzing is inspired by random input generation for programs
-expecting to crash them and reveal potential vulnerabilities. A fuzzing engine
-generally comprises the input generator and the monitor that detect errors
-during the program run time. In addition to pure random value generation, we
-have mutation-based fuzzing, aiming to expose a more narrow domain of bugs.
-Fuzzing is a contemporary practice taken when analyzing Smart Contracts. 
+expecting them crash and reveal potential vulnerabilities. A fuzzing engine
+generally comprises the \emph{input generator} and the \emph{monitor} that
+detect errors during the program run time. In addition to pure random value
+generation, we have \emph{mutation-based fuzzing}, aiming to expose a more
+narrow domain of bugs. Fuzzing is a contemporary practice taken when analyzing
+Smart Contracts. 
 
-ContractFuzzer[] is a state-of-the-art framework transcending the complex and
-unsolvable mathematic constraints of Static Analysis. GasFuzzer takes a Smart
+ContractFuzzer\cite{jiang2018contractfuzzer} is a state-of-the-art framework transcending the complex and
+unsolvable mathematic constraints of Static Analysis. Contract Fuzzer takes a Smart
 Contract's application binary interface (ABI), extracts the function signatures,
 and uses them to generate possible inputs. Afterward, the code is executed using
 the generated inputs, while executions logs are dumped into an external log
@@ -598,7 +610,7 @@ the Smart Contracts, researchers initiated transactions coming from different
 types of accounts (owner address, external address, attacker Smart Contract
 address). This is something we could not accomplish using Static Analysis. 
 
-Building on top of Contract Fuzzer, Ashraf et al. created Gas Fuzzer[], a
+Building on top of Contract Fuzzer, Ashraf et al. created Gas Fuzzer\cite{ashraf2020gasfuzzer}, a
 gas-oriented fuzzing tool. This tool employs two different methods of fuzzing,
 gas-greedy, and gas-leveling. The gas-greedy strategy generates random
 transactions putting them in a pool. The fuzzing engine takes one, mutates it,
@@ -612,19 +624,61 @@ different levels. This strategy seeks to report the code coverage reached using
 different amounts of gas. Once coverage converges to its maximum, the tool
 checks for bugs using the execution log. 
 
-Some other fuzzing extends Static Analysis techniques to achieve their goals.
-Namely, Reguard, a reentrancy detection framework, uses Static Analysis to
+Some other fuzzing tools extend Static Analysis techniques to achieve their goals.
+Namely, Reguard\cite{liu2018reguard}, a reentrancy detection framework, uses Static Analysis to
 translate into intermediate representation before generating any random values.
 In more detail in this work, researchers attempt to translate Solidity into C++
-to use an out-of-the-box fuzzing engine, AFL[]. Eventually, they check for bugs
+to use an out-of-the-box fuzzing engine, AFL\cite{afl}. Eventually, they check for bugs
 using the execution log, which they feed into automata describing the reentrancy
 vulnerability.
 
-\subsection{Future Directions}
-
 \section{Summary \& Conclusion}
 
-\nocite{*}
+With the emergence of blockchain technologies and particular Smart Contracts,
+many people and governments decided to get involved in building a decentralized
+future. However, this technology is in its very early stages and entails risks.
+Namely, Smart Contract vulnerabilities pose a significant threat to future
+adoption. This literature review presents the latest developments in detecting
+Smart Contract security pitfalls. Ultimately, we refer to prominent studies
+describing different vulnerabilities they detect and how they accomplish that.
+All studies managed to do that using different techniques to reach relatively
+low false positives. It is worth mentioning that the examined vulnerability
+detection tools catch different types of errors. Some of them are gas-oriented,
+others detect only reentrancy attacks, while most are general.
+
+Initially, researchers focused on conservative bug detection techniques such as
+Static Analysis. Remarkable works in this area are OYENTE, Securify, and Zeus.
+Nonetheless, technologies evolved, and later studies shifted to Dynamic analysis
+in order to achieve more reliable results. Indeed Dynamic analysis presents zero
+false positives with some performance tradeoffs. The foremost approach is
+Dynamic analysis is fuzzing, which requires a lot of computation effort to
+generate random input for Smart Contract and execute them. Sometimes this
+procedure can be time-consuming. Notable Dynamic Analysis fuzzing tools are
+Contract Fuzzer and Gas Fuzzer.
+
+Throughout the bibliography review, we managed to detect several limitations and
+challenges that almost every research has. None of the researchers considered
+gas fairness vulnerability detection. Having a fair gas distribution across the
+Smart Contract functionality is also essential. Further, all of the studies, but
+one \cite{jiang2018contractfuzzer} did not consider the scenarios of Smart Contract
+invocation having different roles. It is vital to distinguish vulnerabilities
+according to a transaction initiator. A transaction invocation might not be
+fatal if its issuer is the Smart Contract owner. Additionally, many tools used
+well-predefined vulnerability patterns to detect any abnormal behaviors. The
+limitation of this approach is that only known bugs can be identified, which
+yields questions about the future direction of these frameworks.
+
+Future directions on this topic include new techniques that we have never used
+before. We found several papers using Machine learning combined with fuzzing to
+detect vulnerabilities. Such a study was proposed by Liao et al. Zhang et al.
+promoted a hybrid solution combining Static and Dynamic Analysis. However, we
+did not include them in this literature review since they had no citations, and
+their work was not well recognized yet.
+
+Understanding the technological shift towards the blockchain industry, it is
+evident that the following years will disrupt the current state, and Smart
+Contract auditing will be necessary. Nevertheless, there will always be room for
+improvement.
 
 %                Now build the reference list
 \bibliographystyle{unsrt}   % The reference style
